@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter</title>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+
+    <!-- Header -->
+    <header class="border-b border-gray-100 py-5 sticky top-0 bg-white z-50">
+        <div class="container mx-auto px-6 flex flex-col gap-4 sm:flex-row items-center justify-between">
+            <div class="text-xl font-bold tracking-widest uppercase text-gray-900">
+                Digital Atelier
+            </div>
+            <div class="nav">
+                <search class="flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
+                    <input type="text"
+                        class="search outline-none text-sm text-gray-700 placeholder-gray-400 bg-transparent w-40"
+                        placeholder="Search...">
+                </search>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container mx-auto px-6 py-12 text-center sm:text-start">
+
+        <!-- Title & Desc -->
+        <h1 class="text-4xl font-light tracking-tight text-gray-900 mb-3">Curated Essentials</h1>
+        <p class="text-gray-400 text-sm max-w-xl leading-relaxed mb-10">
+            A meticulous selection of seasonal silhouettes, crafted with architectural precision and
+            timeless appeal for the modern wardrobe.
+        </p>
+
+        <!-- Sort & Filter -->
+        <div class="flex items-center justify-center sm:justify-between mb-10 gap-4 flex-wrap">
+
+            <!-- Categories -->
+            <div class="categories flex items-center gap-2 flex-wrap">
+                <div class="cat px-4 py-1.5 rounded-full text-sm font-medium bg-gray-900 text-white cursor-pointer">All
+                </div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Accessories</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Outerwear</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Tshirt</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Pants</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Footwear</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Activewear</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Shirt</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Hoodie</div>
+                <div
+                    class="cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition">
+                    Sweater</div>
+            </div>
+
+            <!-- Sort -->
+            <div class="sort">
+                <label for="featured-sort"></label>
+                <select name="sort" id="featured-sort"
+                    class="border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-600 outline-none cursor-pointer bg-white">
+                    <option value="none">No Sort</option>
+                    <option value="price">Price</option>
+                    <option value="rating">Rating</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="products" class="products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://kit.fontawesome.com/bcf95508ed.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

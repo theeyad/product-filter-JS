@@ -342,7 +342,7 @@ function createProducts(products) {
 
     let picOverflow = document.createElement("div");
     picOverflow.className =
-      "pic-overflow overflow-hidden rounded-xl bg-gray-50 mb-3";
+      "pic-overflow overflow-hidden rounded-xl bg-gray-50 mb-3 border border-gray-100 shadow-lg";
 
     let picture = document.createElement("picture");
     picture.className = "group picture";
@@ -396,16 +396,32 @@ function createProductRating(filledStars, stars) {
   const starsNum = 10;
 
   for (let i = 0; i < filledStars; i++) {
-    let i = document.createElement("i");
-    i.className = "fa-solid fa-star text-yellow-400 text-xs";
-    stars.append(i);
+    let boldStar = document.createElement("i");
+    boldStar.className = "fa-solid fa-star text-yellow-400 text-xs";
+    stars.append(boldStar);
   }
 
   for (let j = 0; j < starsNum - filledStars; j++) {
-    let i = document.createElement("i");
-    i.className = "fa-regular fa-star text-yellow-400 text-xs";
-    stars.append(i);
+    let regStar = document.createElement("i");
+    regStar.className = "fa-regular fa-star text-yellow-400 text-xs";
+    stars.append(regStar);
   }
+}
+
+let state = {
+  category: "All",
+  sort: "none",
+  search: "",
+};
+
+function updateUI() {
+  let filtered = products;
+
+  filtered = filterProducts(filtered, state.category);
+  filtered = sortProducts(filtered, state.sort);
+  filtered = searchProducts(filtered, state.search);
+
+  createProducts(filtered);
 }
 
 // Filtering Logic
@@ -413,31 +429,34 @@ const categories = document.querySelector(".categories");
 
 categories.childNodes.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    filterProducts(e.target.innerHTML.trim());
+    document.querySelector(".cat.active").className =
+      "cat px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white cursor-pointer transition";
+
+    e.target.className =
+      "cat active px-4 py-1.5 rounded-full text-sm font-medium bg-gray-900 text-white cursor-pointer";
+
+    state.category = e.target.innerHTML.trim();
+    updateUI();
   });
 });
 
-function filterProducts(categoryName) {
-  categoryName === "All"
-    ? createProducts(products)
-    : createProducts(products.filter((ele) => ele.category === categoryName));
+function filterProducts(data, categoryName) {
+  if (categoryName === "All") return data;
+  return data.filter((ele) => ele.category === categoryName);
 }
 
 // Sorting Logic
 const select = document.getElementById("featured-sort");
 
 select.addEventListener("change", (e) => {
-  let sortValue = e.target.value;
-  sortProducts(sortValue);
+  state.sort = e.target.value;
+  updateUI();
 });
 
-function sortProducts(sortValue) {
-  if (sortValue === "none") {
-    createProducts(products);
-    return;
-  }
+function sortProducts(data, sortValue) {
+  if (sortValue === "none") return data;
 
-  let toSort = [...products];
+  let toSort = [...data];
 
   if (sortValue === "price") {
     toSort.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
@@ -445,16 +464,17 @@ function sortProducts(sortValue) {
     toSort.sort((a, b) => b.rating - a.rating);
   }
 
-  createProducts(toSort);
+  return toSort;
 }
 
 // Search Logic
 const searchInput = document.querySelector(".search");
 
 searchInput.addEventListener("input", (e) => {
-  createProducts(
-    products.filter((ele) =>
-      ele.productName.toLowerCase().includes(e.target.value.toLowerCase()),
-    ),
-  );
+  state.search = e.target.value.toLowerCase();
+  updateUI();
 });
+
+function searchProducts(data, search) {
+  return data.filter((ele) => ele.productName.toLowerCase().includes(search));
+}

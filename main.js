@@ -418,9 +418,43 @@ categories.childNodes.forEach((btn) => {
 });
 
 function filterProducts(categoryName) {
-  if (categoryName === "All") {
-    createProducts(products);
-  } else {
-    createProducts(products.filter((ele) => ele.category === categoryName));
-  }
+  categoryName === "All"
+    ? createProducts(products)
+    : createProducts(products.filter((ele) => ele.category === categoryName));
 }
+
+// Sorting Logic
+const select = document.getElementById("featured-sort");
+
+select.addEventListener("change", (e) => {
+  let sortValue = e.target.value;
+  sortProducts(sortValue);
+});
+
+function sortProducts(sortValue) {
+  if (sortValue === "none") {
+    createProducts(products);
+    return;
+  }
+
+  let toSort = [...products];
+
+  if (sortValue === "price") {
+    toSort.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+  } else {
+    toSort.sort((a, b) => b.rating - a.rating);
+  }
+
+  createProducts(toSort);
+}
+
+// Search Logic
+const searchInput = document.querySelector(".search");
+
+searchInput.addEventListener("input", (e) => {
+  createProducts(
+    products.filter((ele) =>
+      ele.productName.toLowerCase().includes(e.target.value),
+    ),
+  );
+});

@@ -454,7 +454,7 @@ const searchInput = document.querySelector(".search");
 searchInput.addEventListener("input", (e) => {
   createProducts(
     products.filter((ele) =>
-      ele.productName.toLowerCase().includes(e.target.value),
+      ele.productName.toLowerCase().includes(e.target.value.toLowerCase()),
     ),
   );
 });
